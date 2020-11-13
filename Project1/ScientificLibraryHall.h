@@ -84,7 +84,7 @@ public:
 			return tmp;
 		}
 		ScientificBook& bb = this->booksArr[0];
-		for (int i = 0; i < this->booksArr.getAmount()) {
+		for (int i = 0; i < this->booksArr.getAmount(); i++) {
 			if (bb.getPrice() < this->booksArr[i].getPrice()) {
 				bb = this->booksArr[i];
 			}
