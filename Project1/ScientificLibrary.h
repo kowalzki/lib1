@@ -107,7 +107,7 @@ public:
 
 	void print() {
 		for (int i = 0; i < this->hallsArr.getAmount(); i++) {
-			std::cout << " Hall: " << this->hallsArr[i].getHName();
+			std::cout << " Hall: #" << i+1;
 			this->hallsArr[i].print();
 		}
 		std::cout << "\n";

@@ -1,6 +1,8 @@
 #pragma once
 #include <cstdlib>
 
+//template<typename T> class TList1Reliz<T>;
+
 template<typename T>
 class TList1Elem
 {
@@ -23,5 +25,6 @@ private:
 		this->data = T.data;
 		this->next = T.next;
 	}
-	friend TList1Reliz;
+	template<typename T>
+		friend class TList1Reliz;
 };

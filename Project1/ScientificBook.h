@@ -40,24 +40,24 @@ public:
 		this->rating = newbk.rating;
 	}
 
-	void set_author(const std::string athr) {
+	void setAuthor(const std::string athr) {
 		this->author = athr;
 		return;
 	}
 
-	void set_name(const std::string newnm) {
+	void setName(const std::string newnm) {
 		this->name = newnm; return;
 	}
 
-	void set_cost(const float nwPrc) {
+	void setPrice(const float nwPrc) {
 		this->price = nwPrc; return;
 	}
 
-	void set_yearPost(const int yr) {
+	void setYear(const int yr) {
 		this->year = yr; return;
 	}
 
-	void set_rating(const int rate) {
+	void setRating(const int rate) {
 		this->rating = rate; return;
 	}
 

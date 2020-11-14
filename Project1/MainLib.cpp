@@ -15,13 +15,30 @@ int main() {
 	ScientificLibrary libka = generateLibrary();
 	libka.print();
 
+	ScientificBook pbk = ScientificBook("PUchkin", "STIHI", 550, 1995, 85);
+	libka.getHallInd(0).addBk(pbk, 2);
+	std::cout << "Say hello to Pushkin's stihi\n"; libka.print();
 
+	ScientificBook nbk = ScientificBook("ANOTHER", "CHANGED", 610, 1987, 67);
+	libka.getHallInd(0).remakeBk(nbk, 2);
+	std::cout << "Say bye to Pushkin. He's now CHANGED :(\n"; libka.print();
+
+	libka.getHallInd(0).deleteInd(2);
+	std::cout << "Say bye to CHANGED\n"; libka.print();
+
+	ScientificLibraryHall nhl = generateHall();
+	libka.remakeHl(nhl, 0);
+	std::cout << "Say hello to new Hall\n"; libka.print();
+
+	ScientificBook bb = libka.getBestBook();
+	std::cout << "And the author of the Best Book is: " << bb.getAuthor()
+		<< "\nwith the price of: " << bb.getPrice() << "\n \n";
 
 	system("pause");
 	return 0;
 }
 
-std::string generateRandString(int len = 0)
+std::string generateRandString(int len)
 {
 	std::string t = "";
 	if (!len)
@@ -34,21 +51,22 @@ std::string generateRandString(int len = 0)
 	}
 	return t;
 }
+
 ScientificBook generateBook()
 {
 	ScientificBook t;
-	t.set_author(generateRandString());
-	t.set_name(generateRandString());
-	t.set_cost(rand() % 100 + (rand() % 100 * 1. / 100));
-	t.set_yearPost(1900 + rand() % 121);
-	t.set_rating(rand() % 100 * 1. / 100);
+	t.setAuthor(generateRandString());
+	t.setName(generateRandString());
+	t.setPrice(rand() % 100 + (rand() % 100 * 1. / 100));
+	t.setYear(1900 + rand() % 121);
+	t.setRating(rand() % 100);
 	return t;
 }
-ScientificLibraryHall generateHall(int count = -1)
+ScientificLibraryHall generateHall(int count)
 {
 	if (count == -1)
 	{
-		count = rand() % 5 + 5;
+		count = rand() % 3+3;
 	}
 	ScientificLibraryHall t;
 	t.setHName(generateRandString());
@@ -58,11 +76,11 @@ ScientificLibraryHall generateHall(int count = -1)
 	}
 	return t;
 }
-ScientificLibrary generateLibrary(int hallsNum = -1)
+ScientificLibrary generateLibrary(int hallsNum)
 {
 	if (hallsNum == -1)
 	{
-		hallsNum = rand() % 5 + 5;
+		hallsNum = 4;// rand() % 5 + 5;
 	}
 	ScientificLibrary t;
 	ScientificLibraryHall hall;

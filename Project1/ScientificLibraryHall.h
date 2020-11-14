@@ -96,7 +96,7 @@ public:
 		std::cout << " Amount: " << this->booksArr.getAmount() << std::endl;
 		for (int i = 0; i < this->booksArr.getAmount(); i++)
 		{
-			std::cout << std::left << "\tBook #" << std::setw(2) << i << "\tname: "
+			std::cout << std::left << "\tBook #" << std::setw(2) << i+1 << "\tname: "
 				<< this->booksArr[i].getName() << std::endl;
 		}
 		std::cout << std::endl;

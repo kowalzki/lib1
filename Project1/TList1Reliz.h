@@ -3,52 +3,37 @@
 #include <cstdlib>
 #include <iostream>
 
+/*template<typename T> class TList1Elem
+{
+private:
+	T data;
+	TList1Elem* next;
+
+	TList1Elem() { this->next = this; }
+
+	TList1Elem(T newEl) {
+		this->data = newEl;
+	}
+
+	TList1Elem(T newEl, TList1Elem* nextEl) {
+		this->data = newEl;
+		this->next = nextEl;
+	}
+
+	TList1Elem(const TList1Elem& T) {
+		this->data = T.data;
+		this->next = T.next;
+	}
+	friend class TList1Reliz<T>;
+};*/
+
+
 template<typename T>
 class TList1Reliz {
 	TList1Elem<T>* head;
 
-	public bool ifEmpty() {
-		return (this->head == this->head->next);
-	}
-	
-	public TList1Reliz() {
-		this->head->next = new TList1Elem<T>;
-	}
-
-	public TList1Reliz(const TList1Reliz& tmp) {
-		this->initialization(tmp, false, true);
-	}
-
-	~TList1Reliz() {
-		this->deleteAllSCD();
-		delete this->head;
-	}
-
-	public int getAmount() {
-		TList1Elem<T>* thisl = this->head->next;
-		int lgh = 0;
-		while (thisl != this->head) {
-			thisl = thisl->next; lgh++;
-		}
-		return lgh;
-	}
-
-	public bool add(const T newElem, const int index = -1)
-	{
-		int lgh = this->getAmount();
-		int variableInd = index;
-
-		if (variableInd == -1) variableInd = lgh;
-		if (variableInd < 0 || variableInd > lgh) return false;
-
-		TList1Elem<T>* prEl = this->getElemSCD(variableInd - 1);
-		TList1Elem<T>* thsEl = this->getElemSCD(newElem, prEl->next);
-
-		prEl->next = thsEl;
-		return true;
-	}
-
-	private TList1Elem<T>* getElemSCD(const int index) const {
+private:
+	TList1Elem<T>* getElemSCD(const int index) const {
 		if (index == -1) {
 			return head;
 		}
@@ -60,17 +45,10 @@ class TList1Reliz {
 		return thisl;
 	}
 
-	public bool remakeThis(const T newEl, const int index) {
-		if (index < 0 || index >= this->getAmount()) return false;
+	void deleteAllSCD() {
+		if (this->getAmount() == 0) return;
 
-		this->getElemSCD(index)->data = newEl;
-		return true;
-	}
-
-	private void deleteAllSCD() {
-		if (this->getAmount == 0) return;
-
-		if (this->getAmount == 1) {
+		if (this->getAmount() == 1) {
 			delete this->head->next;
 			this->head->next = this->head;
 			return;
@@ -79,7 +57,7 @@ class TList1Reliz {
 		TList1Elem<T>* thisel = this->head->next;
 		TList1Elem<T>* nextel = thisel->next;
 
-		while (!thisel->head) {
+		while (thisel != head) {
 			delete thisel;
 			thisel = nextel;
 			nextel = nextel->next;
@@ -87,7 +65,56 @@ class TList1Reliz {
 		this->head->next = this->head;
 	}
 
-	public bool deleteInd(const int index = -1) {
+public: 
+	bool ifEmpty() {
+		return (this->head == this->head->next);
+	}
+	
+	TList1Reliz() {
+		this->head = new TList1Elem<T>;
+	}
+
+	TList1Reliz(const TList1Reliz& tmp) {
+		this->initialization(tmp, false, true);
+	}
+
+	~TList1Reliz() {
+		this->deleteAllSCD();
+		delete this->head;
+	}
+
+	int getAmount() const {
+		TList1Elem<T>* thisl = this->head->next;
+		int lgh = 0;
+		while (thisl != this->head) {
+			thisl = thisl->next; lgh++;
+		}
+		return lgh;
+	}
+
+	bool add(const T newElem, const int index = -1)
+	{
+		int lgh = this->getAmount();
+		int variableInd = index;
+
+		if (variableInd == -1) variableInd = lgh;
+		if (variableInd < 0 || variableInd > lgh) return false;
+
+		TList1Elem<T>* prEl = this->getElemSCD(variableInd - 1);
+		TList1Elem<T>* thsEl = new TList1Elem<T>(newElem, prEl->next);
+
+		prEl->next = thsEl;
+		return true;
+	}
+
+	bool remakeThis(const T newEl, const int index) {
+		if (index < 0 || index >= this->getAmount()) return false;
+
+		this->getElemSCD(index)->data = newEl;
+		return true;
+	}
+
+	bool deleteInd(const int index = -1) {
 		int lgh = this->getAmount();
 		int variableInd = index;
 		if (variableInd == -1) 	variableInd = lgh - 1;
@@ -96,17 +123,17 @@ class TList1Reliz {
 		TList1Elem<T>* prEl = this->getElemSCD(variableInd - 1);
 		TList1Elem<T>* thsEl = prEl->next;
 		prEl->next = thsEl->next;
-		delete thsEl; 
+		delete thsEl;
 		return true;
 	}
 
-	public void initialization(const TList1Reliz& tmp, const bool fDelete = true, const bool fInitHdr = false) {
+	void initialization(const TList1Reliz& tmp, const bool fDelete = true, const bool fInitHdr = false) {
 		int lgh = tmp.getAmount();
 		if (fDelete) this->deleteAllSCD();
 		if (fInitHdr) this->head = new TList1Elem<T>();
 		if (lgh == 0) return;
 
-		TList1Elem<T>* newHdr = tmp.head; 
+		TList1Elem<T>* newHdr = tmp.head;
 		TList1Elem<T>* thisHdr = this->head;
 
 		if (lgh == 1) {
@@ -128,8 +155,8 @@ class TList1Reliz {
 		return;
 	}
 
-	public void initialization(const T* initArr, const int lgh) {
-		this->deleteAllSCD;
+	void initialization(const T* initArr, const int lgh) {
+		this->deleteAllSCD();
 		TList1Elem<T>* newPtr = head;
 		for (int i = 0; i < lgh; i++) {
 			TList1Elem<T>* tmp = new TList1Elem<T>(initArr[i]);
