@@ -66,7 +66,7 @@ ScientificLibraryHall generateHall(int count)
 {
 	if (count == -1)
 	{
-		count = rand() % 3+3;
+		count = 3;// rand() % 3+3;
 	}
 	ScientificLibraryHall t;
 	t.setHName(generateRandString());
